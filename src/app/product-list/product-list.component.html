@@ -1,0 +1,64 @@
+<!-- Written by Jiny Jithesh -->
+
+<div class="row">
+  <div class="col-md-6">
+    <div class="container">
+      <table class="table table-striped">
+        <thead>
+          <th scope="col">Prduct name</th>
+          <th scope="col">Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Buy</th>
+        </thead>
+        <tbody>
+          <tr *ngFor="let product of products; let i = index;">
+            <td> {{product.product_name}} </td>
+            <td> {{product.price}} </td>
+            <td> {{product.quantity}} </td>
+            <td><button class="btn btn-secondary" (click)="onBuyProd(product)" name="onBuyProd">Buy</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="container">
+      <form [formGroup]="buy" (ngSubmit)="onBuy(product)">
+        <div class="form-group">
+          <label for="product_name">Productname</label>
+          <input type="text" class="form-control" id="product_name" name="product_name" [(ngModel)]="this.product.product_name" formControlName="product_name" />
+          <div class="alert alert-danger" *ngIf="!buy.controls.product_name.valid && !buy.controls.product_name.pristine">This field is required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text" class="form-control" id="price" name="price" [(ngModel)]="this.product.price" formControlName="price"/>
+          <div class="alert alert-danger" *ngIf="!buy.controls.price.valid && !buy.controls.price.pristine">This field is required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Quantity</label>
+          <input type="text" class="form-control" id="quantity" name="quantity" [(ngModel)]="this.product.quantity" formControlName="quantity" />
+          <div class="alert alert-danger" *ngIf="!buy.controls.quantity.valid && !buy.controls.quantity.pristine">This field is required</div>
+        </div>
+
+        <div class="form-group">
+          <label for="referralID">Referral code</label>
+          <input
+            type="text"
+            class="form-control"
+            id="referralID"
+            name="referralID"
+            formControlName = "referralID"
+          />
+          <div class="alert alert-danger" *ngIf="!buy.controls.referralID.valid && !buy.controls.referralID.pristine">This field is required</div>
+        </div>
+
+        <div class="form-group">
+          <button type="submit" class="btn btn-danger" [disabled]="!this.buy.valid">Buy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
